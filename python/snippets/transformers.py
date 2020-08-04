@@ -1,3 +1,6 @@
+"""Transformers module."""
+# pylint: disable=unused-argument,missing-docstring
+
 from sklearn.base import TransformerMixin
 from sklearn.preprocessing import OrdinalEncoder
 from category_encoders import TargetEncoder

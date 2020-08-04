@@ -21,7 +21,6 @@ function format_python {
 
 function linting {
   shellcheck run.sh -x -e SC1091
-  shellcheck bash/*.sh
   echo '========================================'
   echo 'Black check of python/:'
   format_python

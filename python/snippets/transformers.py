@@ -3,7 +3,7 @@ from sklearn.preprocessing import OrdinalEncoder
 from category_encoders import TargetEncoder
 
 
-def listify(x):
+def _listify(x):
     """Returns single-element list of x if x is neither list or tuple already."""
     if not isinstance(x, list) and not isinstance(x, tuple):
         return [x]
@@ -34,7 +34,7 @@ class CategoryTargetEncoder(TransformerMixin):
         else:
             aliases = None
 
-        self.cols = to_element(cols)
+        self.cols = _listify(cols)
         self.aliases = aliases
         self.target_col = target_col
         self.ordinal_transform = ordinal_transform

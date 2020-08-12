@@ -1,0 +1,51 @@
+if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+ silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
+   \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+ autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.config/nvim/plugged')
+   Plug 'scrooloose/nerdtree'
+   Plug 'terryma/vim-expand-region'
+   Plug '0x84/vim-coderunner'
+   Plug 'junegunn/goyo.vim'
+   Plug 'vim-airline/vim-airline'
+   Plug 'morhetz/gruvbox'
+   Plug 'ctrlpvim/ctrlp.vim'
+call plug#end()
+
+syntax enable
+set relativenumber
+set number
+set expandtab
+set shiftwidth=2
+set tabstop=2
+set smarttab
+set updatetime=100
+set laststatus=2
+set backspace=indent,eol,start
+
+let g:syntastic_mode_map = { 'passive_filetypes': ['cpp'] }
+
+" Use system clipboard
+set clipboard+=unnamedplus
+
+" List certain whitespace characters
+set listchars=tab:>·,trail:~,extends:>,precedes:<
+set list
+
+" Selections
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+" Use jj as escape replacement
+inoremap jj <ESC>
+
+" Do not jump to next occurence when using *
+nnoremap * *``
+
+colorscheme gruvbox
+set background=dark
+
+" Do not show help in NERDTree
+let NERDTreeMinimalUI=1

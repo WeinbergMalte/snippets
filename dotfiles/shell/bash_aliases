@@ -1,0 +1,57 @@
+# list:
+alias ls='ls -CF --color=auto'
+alias ll='ls -lha'
+
+# folders:
+alias cdd='cd ../..'
+alias cddd='cd ../../..'
+
+# typo:
+alias cd..='cd ..'
+alias sl='ls'
+
+# shortening:
+alias c='clear'
+alias h='history'
+
+# sudo:
+alias apt-get='sudo apt-get'
+alias root='sudo -i'
+alias su='sudo -i'
+
+# grep:
+alias grep='grep --color=auto'
+alias grepi='grep -ri'
+alias greph='grep -ri --exclude-dir=".*"'
+alias gn='grep -ri --exclude="*.ipynb"'
+
+# git:
+alias gdd='git add'
+alias glg='git log --oneline --decorate --graph --all'
+alias gst='git status'
+alias gco='git checkout'
+alias gcm='git commit'
+
+# conda:
+alias ca='conda activate'
+alias cx='conda deactivate'
+alias cu='conda env update'
+alias crm='conda env remove -n'
+
+# jupyter:
+alias jpn='jupyter notebook &'
+alias jpl='jupyter lab &'
+
+# vscode:
+alias cde='code --ignore-certificate-errors'
+
+# vim:
+alias vim='nvim'
+alias vi='nvim'
+
+# misc:
+alias df='df -Tha --total'
+alias du='du -ach | sort -h'
+alias untar='tar -zxvf '
+alias sha='shasum -a 256 '
+alias ipi='ipconfig getifaddr en0'

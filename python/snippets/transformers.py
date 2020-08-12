@@ -7,8 +7,8 @@ from category_encoders import TargetEncoder
 
 
 def _listify(x):
-    """Returns single-element list of x if x is neither list or tuple already."""
-    if not isinstance(x, list) and not isinstance(x, tuple):
+    """Returns single-element list of x if x is not of array-type."""
+    if not isinstance(x, (list, tuple, np.ndarray)):
         return [x]
     return x
 
@@ -27,9 +27,11 @@ class CategoryTargetEncoder(TransformerMixin):
         Name of target column.
     ordinal_transform: bool, optional default=True
         Specifies if transformed columns should be returned as ordinals.
+        Returning ordinals should be preferred for decision-tree-based
+        models.
     """
 
-    def __init__(self, cols, target_col, ordinal_transform=False):
+    def __init__(self, cols, target_col, ordinal_transform=True):
 
         if isinstance(cols, dict):
             aliases = list(cols.values())

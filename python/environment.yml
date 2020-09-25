@@ -1,6 +1,5 @@
 name: snippets
 dependencies:
-# essential dependencies
 - numpy=1.18.5
 - pandas=1.0.5
 - python=3.7.6
@@ -15,3 +14,7 @@ dependencies:
 - jupyterlab=2.1.5
 - jupyter_conda=3.3.1
 - matplotlib=3.2.2
+- xgboost=1.2.0
+- category_encoders=2.2.2
+- stumpy=1.4.0
+- swifter=1.0.6

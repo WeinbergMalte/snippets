@@ -1,63 +1,72 @@
-"""Transformers module."""
+""" Module containing sklearn-type transformers. """
 # pylint: disable=unused-argument,missing-docstring
 
+import stumpy
+import pandas as pd
 from sklearn.base import TransformerMixin
-from sklearn.preprocessing import OrdinalEncoder
-from category_encoders import TargetEncoder
 
 
-def _listify(x):
-    """Returns single-element list of x if x is not of array-type."""
-    if not isinstance(x, (list, tuple, np.ndarray)):
-        return [x]
-    return x
-
-
-class CategoryTargetEncoder(TransformerMixin):
+class StumpyTransformer(TransformerMixin):
     """
-    Encodes categorical features according to their mean target value.
+    Calculates stumpy matrix profile data frame of lag-columns.
+    Acceleration of row-wise computation with .swifter.apply()
 
     Parameters
     ----------
-    cols: str or list of str or tuple of str or dict of str:str
-        Column name, list of column names or dict of column names
-        that should be encoded. If type is dict, encoded columns
-        are mapped from key->value name and the original column is kept.
-    target_col: str
-        Name of target column.
-    ordinal_transform: bool, optional default=True
-        Specifies if transformed columns should be returned as ordinals.
-        Returning ordinals should be preferred for decision-tree-based
-        models.
+
+    m: int default=7
+        Size of matrix profile window.
+    col_prefix: str default='stumpy'
+        Prefix of generated stumpy-columns.
     """
 
-    def __init__(self, cols, target_col, ordinal_transform=True):
-
-        if isinstance(cols, dict):
-            aliases = list(cols.values())
-            cols = list(cols.keys())
-        else:
-            aliases = None
-
-        self.cols = _listify(cols)
-        self.aliases = aliases
-        self.target_col = target_col
-        self.ordinal_transform = ordinal_transform
+    def __init__(self, m=7, col_prefix="stumpy"):
+        self.m = m
+        self.col_prefix = col_prefix
 
     def fit(self, X, y=None):
         return self
 
-    def transform(self, X):
+    def _stumpy_row(self, row, s):
+        if not row.sum():
+            return pd.Series([0] * (s + 1 - self.m))
+        return pd.Series(stumpy.stump(row, m=self.m)[:, 0])
 
-        if self.aliases:
-            X[self.aliases] = X[self.cols]
-            self.cols = self.aliases
+    def transform(self, df, y=None):
 
-        t_enc = TargetEncoder(cols=self.cols)
-        X = t_enc.fit_transform(X, X[self.target_col])
-        if not self.ordinal_transform:
-            return X
+        s = df.shape[1]
+        df_stumpy = df.fillna(0).swifter.apply(self._stumpy_row, s=s, axis=1)
+        df_stumpy.columns = [f"{self.col_prefix}_{i}" for i in range(s - self.m + 1)]
 
-        o_enc = OrdinalEncoder()
-        X[self.cols] = o_enc.fit_transform(X[self.cols])
-        return X
+        return df_stumpy
+
+
+class FullStumpyTransformer(TransformerMixin):
+    """
+    Selects lag columns from data frame and appends stumpy matrix profile.
+
+    Parameters
+    ----------
+
+    m: int default=7
+        Size of matrix profile window.
+    cols: list-type
+        List of lag columns in data frame.
+    """
+
+    def __init__(self, m, cols):
+        self.m = m
+        self.cols = cols
+
+    def fit(self, X, y=None):
+        return self
+
+    def transform(self, df, y=None):
+
+        df_stumpy = StumpyTransformer(self.m).fit_transform(df[self.cols])
+
+        drop_cols = [c for c in df_stumpy.columns if c in df.columns]
+        if len(drop_cols):
+            df = df.drop(drop_cols, axis=1)
+
+        return pd.concat([df, df_stumpy], axis=1)

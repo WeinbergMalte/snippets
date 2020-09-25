@@ -1,3 +1,5 @@
+""" Setup of snippets package. """
+
 import os
 
 from typing import List

@@ -4,6 +4,7 @@
 import stumpy
 import pandas as pd
 import numpy as np
+from typing import Optional, Union
 from sklearn.base import TransformerMixin
 
 
@@ -17,7 +18,12 @@ class Log1pTransformer(TransformerMixin):
     :param fillna: Boolean, whether to fill NaN values with zero. Defaults to False
     """
 
-    def __init__(self, col, retain_sign=True, fillna=False):
+    def __init__(
+        self,
+        col: str,
+        retain_sign: Optional[bool] = True,
+        fillna: Optional[bool] = False,
+    ):
         self.col = col
         self.retain_sign = retain_sign
         self.fillna = fillna
@@ -25,7 +31,7 @@ class Log1pTransformer(TransformerMixin):
     def fit(self, X, y=None):
         return self
 
-    def transform(self, X) -> pd.DataFrame:
+    def transform(self, X: pd.DataFrame) -> pd.DataFrame:
 
         if self.fillna:
             X[self.col] = X[self.col].fillna(0)
@@ -53,19 +59,19 @@ class StumpyTransformer(TransformerMixin):
         Prefix of generated stumpy-columns.
     """
 
-    def __init__(self, m=7, col_prefix="stumpy"):
+    def __init__(self, m: Optional[int] = 7, col_prefix: Optional[str] = "stumpy"):
         self.m = m
         self.col_prefix = col_prefix
 
     def fit(self, X, y=None):
         return self
 
-    def _stumpy_row(self, row, s):
+    def _stumpy_row(self, row: tuple, s: int) -> tuple:
         if not row.sum():
             return pd.Series([0] * (s + 1 - self.m))
         return pd.Series(stumpy.stump(row, m=self.m)[:, 0])
 
-    def transform(self, df, y=None) -> pd.DataFrame:
+    def transform(self, df: pd.DataFrame, y=None) -> pd.DataFrame:
 
         s = df.shape[1]
         df_stumpy = df.fillna(0).swifter.apply(self._stumpy_row, s=s, axis=1)
@@ -87,14 +93,14 @@ class FullStumpyTransformer(TransformerMixin):
         List of lag columns in data frame.
     """
 
-    def __init__(self, m, cols):
+    def __init__(self, m: int, cols: Union[list, tuple, np.ndarray]):
         self.m = m
         self.cols = cols
 
     def fit(self, X, y=None):
         return self
 
-    def transform(self, df, y=None) -> pd.DataFrame:
+    def transform(self, df: pd.DataFrame, y=None) -> pd.DataFrame:
 
         df_stumpy = StumpyTransformer(self.m).fit_transform(df[self.cols])
 

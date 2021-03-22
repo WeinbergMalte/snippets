@@ -49,7 +49,7 @@ function unit_test_python {
 
 #### name tasks and task usage ########################################################
 task_usage() {
-  echo "Usage: ./run.sh lint | format | unit-test | setup-conda"
+  echo "Usage: ./run.sh lint | format | test | setup-conda"
   exit 1
 }
 cmd=$1

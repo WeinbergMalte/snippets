@@ -1,4 +1,4 @@
-""" Setup of snippets package. """
+""" Setup of mwutils package. """
 
 import os
 
@@ -26,13 +26,12 @@ except IOError:
     CHANGES = ""
 
 setup(
-    name="snippets",
+    name="mwutils",
     version=version,
-    description="snippet-stuff",
+    description="ds utility-stuff",
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
     install_requires=install_requires,
     extras_require={"testing": tests_require, "docs": docs_require},
-    entry_points={"console_scripts": ["snippets = snippets.main:cli"]},
 )

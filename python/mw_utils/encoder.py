@@ -4,7 +4,7 @@ import pandas as pd
 from uuid import uuid4
 from sklearn.preprocessing import OrdinalEncoder
 from category_encoders import TargetEncoder
-from aiff.utils.helper import tolist
+from utils import listify
 
 
 def ordinal_target_encoding(df_list, target_col, cols):
@@ -31,8 +31,8 @@ def ordinal_target_encoding(df_list, target_col, cols):
         List of dataframes (same as input but with encoded columns)
     """
 
-    cols = tolist(cols)
-    df_list = tolist(df_list)
+    cols = listify(cols)
+    df_list = listify(df_list)
 
     # Fit TargetEncoder only on first dataframe in list
     t_enc = TargetEncoder(cols=cols).fit(df_list[0], df_list[0][target_col])

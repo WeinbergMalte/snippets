@@ -1,18 +1,14 @@
-name: snippets
+name: mw_utils
 dependencies:
 - numpy
 - pandas
 - python=3.9.1
 - pip
 - scikit-learn
-- pyyaml
 - pytest
 - pytest-cov
 - black
-- nb_black
 - pylint
-- jupyterlab
-- jupyter_conda
-- matplotlib
-- xgboost
+- stumpy
+- shap
 - category_encoders

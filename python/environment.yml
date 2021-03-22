@@ -1,14 +1,17 @@
 name: mw_utils
 dependencies:
-- numpy
-- pandas
-- python=3.9.1
-- pip
-- scikit-learn
-- pytest
-- pytest-cov
-- black
-- pylint
-- stumpy
-- shap
-- category_encoders
+  - python=3.8
+  - pip=20.1
+  - pytest=5.4
+  - pytest-cov=2.10
+  - mock=4.0
+  - black=19
+  - pylint=2.5
+  - numpy=1.19
+  - pandas=1.2
+  - scikit-learn=0.24
+  - matplotlib=3.3
+  - seaborn=0.11
+  - shap=0.37
+  - stumpy=1.8
+  - category_encoders=2.2

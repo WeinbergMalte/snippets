@@ -4,7 +4,7 @@ set -e
 #### functions and tasks ##############################################################
 
 function ensure_conda_env {
-  local conda_env="snippets"
+  local conda_env="mw_utils"
   local conda_run=conda
 
   if ! conda env list | awk '{print $1}' | grep -Fxq "$conda_env"; then
@@ -43,7 +43,7 @@ function linting {
 }
 
 function unit_test_python {
-  ensure_conda_environment
+  ensure_conda_env
   (cd python && pytest)
 }
 
@@ -57,7 +57,7 @@ shift || true
 case "$cmd" in
   lint) linting ;;
   format) format_python ;;
-  unit-test) unit_test_python ;;
+  test) unit_test_python ;;
   setup-conda) ensure_conda_env ;;
   *)     task_usage ;;
 esac

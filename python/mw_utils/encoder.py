@@ -4,7 +4,7 @@ import pandas as pd
 from uuid import uuid4
 from sklearn.preprocessing import OrdinalEncoder
 from category_encoders import TargetEncoder
-from utils import listify
+from mw_utils.utils import listify
 
 
 def ordinal_target_encoding(df_list, target_col, cols):

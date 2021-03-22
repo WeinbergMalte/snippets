@@ -65,7 +65,11 @@ def place_textbox(ax: plt.axes, title: str) -> None:
 
 
 def shap_summary_plot(
-    shap_df: pd.DataFrame, feature_df: Optional[pd.DataFrame]=None, title: Optional[str]=None, max_display: Optional[int]=10, cmap: Optional[str]="coolwarm"
+    shap_df: pd.DataFrame,
+    feature_df: Optional[pd.DataFrame] = None,
+    title: Optional[str] = None,
+    max_display: Optional[int] = 10,
+    cmap: Optional[str] = "coolwarm",
 ) -> plt.figure:
     """
     Plots SHAP feature importance bars and feature influence in summary-dot plot.

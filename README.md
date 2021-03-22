@@ -1,2 +1,3 @@
-# snippets
-useful code snippets for sharing
+# mw utils
+
+Some DS utility stuff.

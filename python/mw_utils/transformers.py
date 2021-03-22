@@ -7,7 +7,6 @@ import numpy as np
 from sklearn.base import TransformerMixin
 
 
-
 class Log1pTransformer(TransformerMixin):
     """
     Transforms column to ln(|x|+1) with an option to retain the sign of negative values.
@@ -38,7 +37,6 @@ class Log1pTransformer(TransformerMixin):
 
         X[self.col] = np.log1p(X[self.col].abs())
         return X
-
 
 
 class StumpyTransformer(TransformerMixin):

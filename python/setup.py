@@ -1,4 +1,4 @@
-""" Setup of mwutils package. """
+""" Setup of mw_utils package. """
 
 import os
 
@@ -26,7 +26,7 @@ except IOError:
     CHANGES = ""
 
 setup(
-    name="mwutils",
+    name="mw_utils",
     version=version,
     description="ds utility-stuff",
     packages=find_packages(),

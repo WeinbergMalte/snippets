@@ -8,7 +8,6 @@ from itertools import product, permutations
 from pandas.testing import assert_frame_equal
 
 
-
 class TestLog1pTransformer:
     @pytest.fixture
     def trf(self):
@@ -37,7 +36,6 @@ class TestLog1pTransformer:
 
         df_result = trf(column, retain_sign=retain, fillna=fill).fit_transform(df_in)
         assert_frame_equal(df_expected, df_result)
-
 
 
 def get_test_frame(which=0):

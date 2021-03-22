@@ -2,14 +2,14 @@
 
 Contains some data science utils.
 
-#### Encoder
+### Encoder
 Categorical target encoding feature engineering for gradient boosted decision trees.
 
-#### Plotting
+### Plotting
 Contains settings for a decent plotting style as well as some useful routines.
 
-#### Transformers
+### Transformers
 Some useful tansformers in Scikit-Learn API form.
 
-#### Utils
+### Utils
 Some more utility functions.

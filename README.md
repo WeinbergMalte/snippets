@@ -2,14 +2,21 @@
 
 Contains some data science utils.
 
-### Encoder
+### run.sh usage:
+* lint: pylint
+* format: formatting with black
+* test: pytest unit testing (this also sets up the conda environment if not present already)
+* setup-conda: setup environment and process dependencies
+
+# Contents:
+### Encoder:
 Categorical target encoding feature engineering for gradient boosted decision trees.
 
-### Plotting
+### Plotting:
 Contains settings for a decent plotting style as well as some useful routines.
 
-### Transformers
+### Transformers:
 Some useful tansformers in Scikit-Learn API form.
 
-### Utils
+### Utils:
 Some more utility functions.
